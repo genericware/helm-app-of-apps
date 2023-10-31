@@ -13,7 +13,7 @@ metadata:
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.applications.certManager.namespace | quote }}
+    namespace: {{ .Values.applications.certManager.namespace }}
   project: {{ .Values.project.name }}
   source:
     chart: cert-manager
@@ -21,18 +21,7 @@ spec:
     targetRevision: {{ .Values.applications.certManager.revision }}
     helm:
       values: |
-        installCRDs: true
-        extraArgs:
-          - --logging-format=json
-        webhook:
-          extraArgs:
-            - --logging-format=json
-        cainjector:
-          extraArgs:
-            - --logging-format=json
-        startupapicheck:
-          podAnnotations:
-            sidecar.istio.io/inject: "false"
+        {{- include "app-of-apps.valuesObjectCertManager" . | nindent 16 }}
   syncPolicy:
     automated:
       prune: true

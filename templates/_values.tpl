@@ -6,6 +6,26 @@ argo-cd
 {{- end }}
 
 {{/*
+cert-manager
+*/}}
+{{/* todo: link logging format */}}
+{{/* todo: tracing */}}
+{{- define "app-of-apps.valuesObjectCertManager" -}}
+installCRDs: true
+extraArgs:
+  - --logging-format=json
+webhook:
+  extraArgs:
+    - --logging-format=json
+cainjector:
+  extraArgs:
+    - --logging-format=json
+startupapicheck:
+  podAnnotations:
+    sidecar.istio.io/inject: "false"
+{{- end }}
+
+{{/*
 istio-base
 */}}
 {{- define "app-of-apps.valuesFilesIstioBase" -}}
