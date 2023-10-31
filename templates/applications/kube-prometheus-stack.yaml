@@ -31,4 +31,10 @@ spec:
     managedNamespaceMetadata:
       labels:
         istio-injection: enabled
+  ignoreDifferences:
+    # fixes reconciliation loop
+    - group: "*"
+      kind: "*"
+      managedFieldsManagers:
+        - kube-webhook-certgen
 {{ end }}
