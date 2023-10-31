@@ -4,7 +4,8 @@ kind: AppProject
 metadata:
   name: {{ .Values.project.name }}
   namespace: {{ .Values.applications.argocd.namespace }}
-  # todo: annotations
+  annotations:
+    argocd.argoproj.io/sync-wave: "-200"
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
