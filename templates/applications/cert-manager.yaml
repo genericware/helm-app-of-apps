@@ -21,7 +21,7 @@ spec:
     targetRevision: {{ .Values.applications.certManager.revision }}
     helm:
       values: |
-        {{ include "app-of-apps.valuesObjectCertManager" . | nindent 16 }}
+        {{- include "app-of-apps.valuesObjectCertManager" . | nindent 16 }}
   syncPolicy:
     automated:
       prune: true
