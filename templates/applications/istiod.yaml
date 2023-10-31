@@ -1,4 +1,4 @@
-{{ if or .Values.applications.istio.enabled (eq .Values.network.type "istio") }}
+{{ if or .Values.applications.istio.enabled (eq .Values.network.mode "istio") }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
