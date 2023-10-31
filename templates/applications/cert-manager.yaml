@@ -21,7 +21,18 @@ spec:
     targetRevision: {{ .Values.applications.certManager.revision }}
     helm:
       values: |
-        {{- include "app-of-apps.valuesObjectCertManager" . | nindent 16 }}
+        installCRDs: true
+        extraArgs:
+          - --logging-format=json
+        webhook:
+          extraArgs:
+            - --logging-format=json
+        cainjector:
+          extraArgs:
+            - --logging-format=json
+        startupapicheck:
+          podAnnotations:
+            sidecar.istio.io/inject: "false"
   syncPolicy:
     automated:
       prune: true
