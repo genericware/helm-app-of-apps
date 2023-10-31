@@ -6,7 +6,7 @@ metadata:
   namespace: {{ .Values.applications.istio.gateway.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "-140"
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
 spec:
   secretName: minio-server-tls
   duration: 2160h0m0s # 90d
