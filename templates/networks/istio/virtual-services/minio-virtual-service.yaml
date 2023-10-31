@@ -6,6 +6,7 @@ metadata:
   namespace: {{ .Values.applications.minio.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "-110"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
 spec:

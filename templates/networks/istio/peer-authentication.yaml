@@ -6,6 +6,7 @@ metadata:
   namespace: {{ .Values.applications.istio.istiod.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "-100"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
 spec:
   mtls:
     mode: PERMISSIVE
