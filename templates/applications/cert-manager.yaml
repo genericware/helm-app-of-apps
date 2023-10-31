@@ -20,6 +20,8 @@ spec:
     repoURL: https://charts.jetstack.io
     targetRevision: {{ .Values.applications.certManager.revision }}
     helm:
+      valueFiles:
+        - values.yaml
       values: |
         {{- include "app-of-apps.valuesObjectCertManager" . | nindent 16 }}
   syncPolicy:
