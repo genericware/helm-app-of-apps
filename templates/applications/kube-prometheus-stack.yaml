@@ -20,7 +20,7 @@ spec:
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: {{ .Values.applications.prometheus.revision }}
     helm:
-      valuesObject:
+      values: |
         {{ include "app-of-apps.valuesObjectKubePrometheusStack" . | nindent 16 }}
   syncPolicy:
     automated:

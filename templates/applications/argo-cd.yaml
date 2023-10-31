@@ -19,7 +19,7 @@ spec:
     repoURL: https://argoproj.github.io/argo-helm
     targetRevision: {{ .Values.applications.argocd.revision }}
     helm:
-      valuesObject:
+      values: |
         {{ include "app-of-apps.valuesObjectArgoCD" . | nindent 16 }}
   syncPolicy:
     automated:

@@ -20,7 +20,7 @@ spec:
     repoURL: https://grafana.github.io/helm-charts
     targetRevision: {{ .Values.applications.promtail.revision }}
     helm:
-      valuesObject:
+      values: |
         {{ include "app-of-apps.valuesObjectPromtail" . | nindent 16 }}
   syncPolicy:
     automated:

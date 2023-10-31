@@ -20,7 +20,7 @@ spec:
     repoURL: https://kiali.org/helm-charts
     targetRevision: {{ .Values.applications.kiali.revision }}
     helm:
-      valuesObject:
+      values: |
         {{ include "app-of-apps.valuesObjectKialiOperator" . | nindent 16 }}
   syncPolicy:
     automated:

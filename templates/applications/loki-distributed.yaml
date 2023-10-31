@@ -20,7 +20,7 @@ spec:
     repoURL: https://argoproj.github.io/argo-helm
     targetRevision: {{ .Values.applications.loki.revision }}
     helm:
-      valuesObject:
+      values: |
         {{ include "app-of-apps.valuesObjectLokiDistributed" . | nindent 16 }}
   syncPolicy:
     automated:

@@ -20,7 +20,7 @@ spec:
     repoURL: https://charts.min.io/
     targetRevision: {{ .Values.applications.minio.revision }}
     helm:
-      valuesObject:
+      values: |
         {{ include "app-of-apps.valuesObjectMinIO" . | nindent 16 }}
   syncPolicy:
     automated:

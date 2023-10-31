@@ -20,7 +20,7 @@ spec:
     repoURL: https://istio-release.storage.googleapis.com/charts
     targetRevision: {{ .Values.applications.istio.revision }}
     helm:
-      valuesObject:
+      values: |
         {{ include "app-of-apps.valuesObjectIstioIngress" . | nindent 16 }}
   syncPolicy:
     automated:
