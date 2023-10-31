@@ -21,7 +21,7 @@ spec:
     targetRevision: {{ .Values.applications.kafka.revision }}
     helm:
       values: |
-        {{ include "app-of-apps.valuesObjectStrimziKafkaOperator" . | nindent 16 }}
+        {{- include "app-of-apps.valuesObjectStrimziKafkaOperator" . | nindent 16 }}
   syncPolicy:
     automated:
       prune: true

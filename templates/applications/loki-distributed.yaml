@@ -21,7 +21,7 @@ spec:
     targetRevision: {{ .Values.applications.loki.revision }}
     helm:
       values: |
-        {{ include "app-of-apps.valuesObjectLokiDistributed" . | nindent 16 }}
+        {{- include "app-of-apps.valuesObjectLokiDistributed" . | nindent 16 }}
   syncPolicy:
     automated:
       prune: true

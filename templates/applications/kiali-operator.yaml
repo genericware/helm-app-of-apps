@@ -21,7 +21,7 @@ spec:
     targetRevision: {{ .Values.applications.kiali.revision }}
     helm:
       values: |
-        {{ include "app-of-apps.valuesObjectKialiOperator" . | nindent 16 }}
+        {{- include "app-of-apps.valuesObjectKialiOperator" . | nindent 16 }}
   syncPolicy:
     automated:
       prune: true

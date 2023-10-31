@@ -21,7 +21,7 @@ spec:
     targetRevision: {{ .Values.applications.tempo.revision }}
     helm:
       values: |
-        {{ include "app-of-apps.valuesObjectTempoDistributed" . | nindent 16 }}
+        {{- include "app-of-apps.valuesObjectTempoDistributed" . | nindent 16 }}
   syncPolicy:
     automated:
       prune: true

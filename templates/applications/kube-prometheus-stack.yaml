@@ -21,7 +21,7 @@ spec:
     targetRevision: {{ .Values.applications.prometheus.revision }}
     helm:
       values: |
-        {{ include "app-of-apps.valuesObjectKubePrometheusStack" . | nindent 16 }}
+        {{- include "app-of-apps.valuesObjectKubePrometheusStack" . | nindent 16 }}
   syncPolicy:
     automated:
       prune: true
