@@ -13,7 +13,7 @@ metadata:
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.applications.certManager.namespace }}
+    namespace: {{ .Values.applications.certManager.namespace | quote }}
   project: {{ .Values.project.name }}
   source:
     chart: cert-manager
@@ -38,7 +38,6 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-      - PruneLast=true
       - CreateNamespace=true
     managedNamespaceMetadata:
       labels:
