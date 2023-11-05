@@ -1,1 +1,1 @@
-# helm-aoa
+# app-of-apps
