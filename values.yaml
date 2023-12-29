@@ -1,3 +1,4 @@
+# todo: edit for helm-docs so comments auto-include in README
 # provide a name in place of 'app-of-apps'
 nameOverride: app-of-apps
 # string to fully override `"app-of-apps.fullname"`
