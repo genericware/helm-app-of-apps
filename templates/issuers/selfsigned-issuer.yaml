@@ -23,8 +23,8 @@ spec:
   secretName: istio-ca
   commonName: istio-ca
   privateKey:
-    algorithm: Ed25519
-    encoding: PKCS1
+    algorithm: ECDSA
+    encoding: 256
   subject:
     organizations:
       - cluster.local
