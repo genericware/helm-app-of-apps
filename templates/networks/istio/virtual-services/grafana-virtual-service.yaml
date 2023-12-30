@@ -1,4 +1,4 @@
-{{ if and (or .Values.applications.istio.enabled (eq .Values.network.mode "istio")) .Values.applications.prometheus.enabled }}
+{{ if and (and .Values.applications.istio.enabled (eq .Values.network.mode "istio")) .Values.applications.prometheus.enabled }}
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
