@@ -20,8 +20,12 @@ spec:
     repoURL: https://istio-release.storage.googleapis.com/charts
     targetRevision: {{ .Values.applications.istio.revision }}
     helm:
-      values: |
-        {{- include "app-of-apps.valuesObjectIstioIngress" . | nindent 16 }}
+      valuesObject:
+        global:
+          logAsJson: true
+        labels:
+          app.kubernetes.io/name: istio-ingress
+          app.kubernetes.io/version: v{{ .Values.applications.istio.revision }}
   syncPolicy:
     automated:
       prune: true

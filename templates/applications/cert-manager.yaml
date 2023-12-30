@@ -20,16 +20,28 @@ spec:
     repoURL: https://charts.jetstack.io
     targetRevision: {{ .Values.applications.certManager.revision }}
     helm:
-      values: |
-        {{- include "app-of-apps.valuesObjectCertManager" . | nindent 16 }}
+      valuesObject:
+        {{/* todo: link logging format */}}
+        {{/* todo: tracing */}}
+        installCRDs: true
+        extraArgs:
+          - --logging-format=json
+        webhook:
+          extraArgs:
+            - --logging-format=json
+        cainjector:
+          extraArgs:
+            - --logging-format=json
+        startupapicheck:
+          podAnnotations:
+            sidecar.istio.io/inject: "false"
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-# todo: this doesn't work correctly; report upstream
-{{/*    syncOptions:*/}}
-{{/*      - CreateNamespace=true*/}}
-{{/*    managedNamespaceMetadata:*/}}
-{{/*      labels:*/}}
-{{/*        istio-injection: enabled*/}}
+    syncOptions:
+      - CreateNamespace=true
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: enabled
 {{ end }}

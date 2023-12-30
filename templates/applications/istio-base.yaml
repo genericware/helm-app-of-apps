@@ -21,7 +21,7 @@ spec:
     targetRevision: {{ .Values.applications.istio.revision }}
     helm:
       valueFiles:
-        {{- include "app-of-apps.valuesFilesIstioBase" . | nindent 16 }}
+        - values.yaml
   syncPolicy:
     automated:
       prune: true

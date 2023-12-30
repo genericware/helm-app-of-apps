@@ -20,15 +20,47 @@ spec:
     repoURL: https://strimzi.io/charts/
     targetRevision: {{ .Values.applications.kafka.revision }}
     helm:
-      values: |
-        {{- include "app-of-apps.valuesObjectStrimziKafkaOperator" . | nindent 16 }}
+      valuesObject:
+        logConfiguration: |
+          name = COConfig
+          monitorInterval = 30
+
+          appender.console.type = Console
+          appender.console.name = STDOUT
+          appender.console.layout.type = JsonLayout
+          appender.console.layout.properties = true
+          appender.console.layout.compact = true
+          appender.console.layout.eventEol = true
+
+          rootLogger.level = INFO
+          rootLogger.appenderRefs = stdout
+          rootLogger.appenderRef.console.ref = STDOUT
+          rootLogger.additivity = false
+
+          # Kafka AdminClient logging is a bit noisy at INFO level
+          logger.kafka.name = org.apache.kafka
+          logger.kafka.level = WARN
+          logger.kafka.additivity = false
+
+          # Zookeeper is very verbose even on INFO level -> We set it to WARN by default
+          logger.zookeepertrustmanager.name = org.apache.zookeeper
+          logger.zookeepertrustmanager.level = WARN
+          logger.zookeepertrustmanager.additivity = false
+
+          # Keeps separate level for Netty logging -> to not be changed by the root logger
+          logger.netty.name = io.netty
+          logger.netty.level = INFO
+          logger.netty.additivity = false
+        labels:
+          app.kubernetes.io/name: strimzi-kafka-operator
+          app.kubernetes.io/version: v{{ .Values.applications.kafka.revision }}
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-{{/*    syncOptions:*/}}
-{{/*      - CreateNamespace=true*/}}
-{{/*    managedNamespaceMetadata:*/}}
-{{/*      labels:*/}}
-{{/*        istio-injection: enabled*/}}
+    syncOptions:
+      - CreateNamespace=true
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: enabled
 {{ end }}
