@@ -1,4 +1,4 @@
-{{ if .Values.applications.argocd.enabled }}
+{{ if .Values.applications.promtail.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
