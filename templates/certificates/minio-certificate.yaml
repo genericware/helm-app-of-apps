@@ -15,7 +15,6 @@ spec:
     organizations:
       - {{ .Values.project.organization }}
   commonName: {{ .Values.project.domain }}
-  isCA: false
   privateKey:
     algorithm: Ed25519
     encoding: PKCS1
