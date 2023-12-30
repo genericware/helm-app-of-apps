@@ -5,7 +5,7 @@ metadata:
   name: argo-cd
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-170"
+    argocd.argoproj.io/sync-wave: "-200"
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
