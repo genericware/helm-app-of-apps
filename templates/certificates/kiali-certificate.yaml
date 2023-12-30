@@ -12,8 +12,8 @@ spec:
   duration: 2160h0m0s # 90d
   renewBefore: 360h0m0s # 15d
   privateKey:
-    algorithm: Ed25519
-    encoding: PKCS1
+    algorithm: ECDSA
+    encoding: 256
   dnsNames:
     - kiali.{{ .Values.project.environment }}.{{ .Values.project.region }}.{{ .Values.project.domain }}
   issuerRef:
