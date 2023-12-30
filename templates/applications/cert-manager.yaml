@@ -28,9 +28,10 @@ spec:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-    managedNamespaceMetadata:
-      labels:
-        istio-injection: enabled
+# todo: this doesn't work correctly; report upstream
+{{/*    syncOptions:*/}}
+{{/*      - CreateNamespace=true*/}}
+{{/*    managedNamespaceMetadata:*/}}
+{{/*      labels:*/}}
+{{/*        istio-injection: enabled*/}}
 {{ end }}
