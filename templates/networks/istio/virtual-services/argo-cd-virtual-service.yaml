@@ -1,6 +1,4 @@
-# todo: revert
-{{/*{{ if and (or .Values.applications.istio.enabled (eq .Values.network.mode "istio")) .Values.applications.argocd.enabled }}*/}}
-{{ if and (or .Values.applications.istio.enabled (eq .Values.network.mode "istio")) }}
+{{ if and (or .Values.applications.istio.enabled (eq .Values.network.mode "istio")) .Values.applications.argocd.enabled }}
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
