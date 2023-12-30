@@ -26,11 +26,11 @@ spec:
     automated:
       prune: true
       selfHeal: true
-{{/*    syncOptions:*/}}
-{{/*      - CreateNamespace=true*/}}
-{{/*    managedNamespaceMetadata:*/}}  # todo
-{{/*      labels:*/}}
-{{/*        istio-injection: enabled*/}}
+    syncOptions:
+      - CreateNamespace=true
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: enabled
   ignoreDifferences:
     # fixes reconciliation loop
     # see: https://github.com/argoproj/argo-cd/issues/9323
