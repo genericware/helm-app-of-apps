@@ -28,7 +28,7 @@ network:
 applications:
   argocd:
     enabled: false
-    revision: 5.38.1
+    revision: 5.49.0
     namespace: argocd
   certManager:
     enabled: true

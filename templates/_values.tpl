@@ -1,8 +1,11 @@
 {{/*
 argo-cd
 */}}
-{{/* todo: argo-cd config */}}
 {{- define "app-of-apps.valuesObjectArgoCD" -}}
+global:
+  logging:
+    format: json
+    level: info
 {{- end }}
 
 {{/*
