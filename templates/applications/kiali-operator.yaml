@@ -122,10 +122,10 @@ spec:
                   enabled: true
               grafana:
                 enabled: true
-                in_cluster_url: "http://kube-prometheus-grafana.kube-prometheus:80/"
-                url: "http://kube-prometheus-grafana.kube-prometheus:3000/"
+                in_cluster_url: "http://kube-prometheus-stack-grafana.kube-prometheus:80/"
+                url: "http://kube-prometheus-stack-grafana.kube-prometheus:3000/"
               prometheus:
-                url: "http://kube-prometheus-kube-prome-prometheus.kube-prometheus:9090/"
+                url: "http://kube-prometheus-stack-prometheus.kube-prometheus:9090/"
                 is_core: true
               tracing:
                 enabled: false
