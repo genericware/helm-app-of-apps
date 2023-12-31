@@ -77,6 +77,8 @@ spec:
               issuerRef:
                 {{ if eq .Values.network.issuer "selfsigned" }}
                 name: istio-ca
+                kind: ClusterIssuer
+                group: cert-manager.io
                 {{ end }}
         prometheus:
           prometheusSpec:
