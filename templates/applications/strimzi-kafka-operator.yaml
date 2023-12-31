@@ -13,7 +13,7 @@ metadata:
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.applications.argocd.namespace }}
+    namespace: {{ .Values.applications.kafka.namespace }}
   project: {{ .Values.project.name }}
   source:
     chart: strimzi-kafka-operator

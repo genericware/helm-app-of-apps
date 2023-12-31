@@ -13,7 +13,7 @@ metadata:
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.applications.argocd.namespace }}
+    namespace: {{ .Values.applications.knative.operator.namespace }}
   project: {{ .Values.project.name }}
   source:
     path: templates/kustomizations/knative-operator/{{ .Values.project.platform }}-{{ .Values.project.environment }}-{{ .Values.project.profile }}

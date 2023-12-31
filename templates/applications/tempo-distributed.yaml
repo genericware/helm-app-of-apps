@@ -13,7 +13,7 @@ metadata:
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.applications.argocd.namespace }}
+    namespace: {{ .Values.applications.tempo.namespace }}
   project: {{ .Values.project.name }}
   source:
     chart: tempo-distributed
