@@ -28,7 +28,7 @@ spec:
         {{/* todo: link grafana enable/disable */}}
         cr:
           create: true
-          namespace: {{ .Values.applications.kiali.namespace }}
+          namespace: {{ .Values.applications.istio.istiod.namespace }}
           spec:
             deployment:
               logger:
@@ -60,28 +60,28 @@ spec:
               certificates_information_indicators:
                 enabled: true
                 secrets:
-                - "cacerts"
-                - "istio-ca-secret"
+                  - "cacerts"
+                  - "istio-ca-secret"
               ui_defaults:
                 graph:
                   traffic:
                     grpc: "requests" # Valid values: none, requests, sent, received and total
                     http: "requests" # Valid values: none and requests
-                    tcp:  "sent"     # Valid values: none, sent, received and total
+                    tcp: "sent"     # Valid values: none, sent, received and total
                   find_options:
-                  - description: "Find: slow edges (> 1s)"
-                    expression: "rt > 1000"
-                  - description: "Find: unhealthy nodes"
-                    expression:  "! healthy"
-                  - description: "Find: unknown nodes"
-                    expression:  "name = unknown"
+                    - description: "Find: slow edges (> 1s)"
+                      expression: "rt > 1000"
+                    - description: "Find: unhealthy nodes"
+                      expression: "! healthy"
+                    - description: "Find: unknown nodes"
+                      expression: "name = unknown"
                   hide_options:
-                  - description: "Hide: healthy nodes"
-                    expression: "healthy"
-                  - description: "Hide: unknown nodes"
-                    expression:  "name = unknown"
+                    - description: "Hide: healthy nodes"
+                      expression: "healthy"
+                    - description: "Hide: unknown nodes"
+                      expression: "name = unknown"
                 metrics_per_refresh: "1m"
-                namespaces: ["istio-system", "istio-ingress"]
+                namespaces: [ "istio-system", "istio-ingress" ]
                 refresh_interval: "60s"
             health_config:
               rate:
@@ -111,14 +111,14 @@ spec:
                 istiod_pod_monitoring_port: 15014
                 component_status:
                   components:
-                  - app_label: "istiod"
-                    is_core: true
-                    is_proxy: false
-                    namespace: {{ .Values.applications.istio.istiod.namespace }}
-                  - app_label: "istio-ingress"
-                    is_core: false
-                    is_proxy: true
-                    namespace: {{ .Values.applications.istio.gateway.namespace }}
+                    - app_label: "istiod"
+                      is_core: true
+                      is_proxy: false
+                      namespace: {{ .Values.applications.istio.istiod.namespace }}
+                    - app_label: "istio-ingress"
+                      is_core: false
+                      is_proxy: true
+                      namespace: {{ .Values.applications.istio.gateway.namespace }}
                   enabled: true
               grafana:
                 enabled: true
