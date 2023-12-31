@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: cert-manager
-  namespace: {{ .Values.applications.certManager.namespace }}
+  namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "-160"
   labels:
@@ -20,17 +20,28 @@ spec:
     repoURL: https://charts.jetstack.io
     targetRevision: {{ .Values.applications.certManager.revision }}
     helm:
-      valueFiles:
-        - values.yaml
-      values: |
-        {{- include "app-of-apps.valuesObjectCertManager" . | nindent 16 }}
+      valuesObject:
+        {{/* todo: link logging format */}}
+        {{/* todo: tracing */}}
+        installCRDs: true
+        extraArgs:
+          - --logging-format=json
+        webhook:
+          extraArgs:
+            - --logging-format=json
+        cainjector:
+          extraArgs:
+            - --logging-format=json
+        startupapicheck:
+          podAnnotations:
+            sidecar.istio.io/inject: "false"
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-{{/*    syncOptions:*/}}
-{{/*      - CreateNamespace=true*/}}
-{{/*    managedNamespaceMetadata:*/}}  # todo
-{{/*      labels:*/}}
-{{/*        istio-injection: enabled*/}}
+    syncOptions:
+      - CreateNamespace=true
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: enabled
 {{ end }}

@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: knative-serving
-  namespace: {{ .Values.applications.knative.serving.namespace }}
+  namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "-80"
   labels:
@@ -13,7 +13,7 @@ metadata:
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.applications.argocd.namespace }}
+    namespace: {{ .Values.applications.knative.serving.namespace }}
   project: {{ .Values.project.name }}
   source:
     path: templates/kustomizations/knative-serving/{{ .Values.project.platform }}-{{ .Values.project.environment }}-{{ .Values.project.profile }}

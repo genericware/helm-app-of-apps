@@ -1,9 +1,9 @@
-{{ if .Values.applications.argocd.enabled }}
+{{ if .Values.applications.minio.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: minio
-  namespace: {{ .Values.applications.minio.namespace }}
+  namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "-50"
   labels:
@@ -13,19 +13,56 @@ metadata:
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.applications.argocd.namespace }}
+    namespace: {{ .Values.applications.minio.namespace }}
   project: {{ .Values.project.name }}
   source:
     chart: minio
     repoURL: https://charts.min.io/
     targetRevision: {{ .Values.applications.minio.revision }}
     helm:
-      values: |
-        {{- include "app-of-apps.valuesObjectMinIO" . | nindent 16 }}
+      valuesObject:
+        {{/* todo: link log format */}}
+        {{/* todo: link log level */}}
+        {{/* todo: tracing */}}
+        {{/* todo: secrets */}}
+        mode: standalone
+        podLabels:
+          app.kubernetes.io/name: minio
+          app.kubernetes.io/version: v{{ .Values.applications.minio.revision }}
+        existingSecret: root-minio-secret
+        persistence:
+          size: 5Gi
+        resources:
+          requests:
+            memory: 4Gi
+        postJob:
+          podAnnotations:
+            sidecar.istio.io/inject: "false"
+        users:
+          - accessKey: admin
+            existingSecret: admin-minio-secret
+            existingSecretKey: secretKey
+            policy: consoleAdmin
+          - accessKey: loki
+            existingSecret: loki-minio-secret
+            existingSecretKey: secretKey
+            policy: readwrite
+          - accessKey: tempo
+            existingSecret: tempo-minio-secret
+            existingSecretKey: secretKey
+            policy: readwrite
+        buckets:
+          - name: loki-{{ .Values.project.region }}-{{ .Values.project.environment }}
+            policy: none
+            purge: false
+          - name: tempo-{{ .Values.project.region }}-{{ .Values.project.environment }}
+            policy: none
+            purge: false
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+# todo: enable after removing secrets from terraform lifecycle for new method
 {{/*    syncOptions:*/}}
 {{/*      - CreateNamespace=true*/}}
 {{/*    managedNamespaceMetadata:*/}}

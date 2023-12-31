@@ -1,4 +1,4 @@
-{{ if or .Values.applications.istio.enabled (eq .Values.network.mode "istio") }}
+{{ if and .Values.applications.istio.enabled (eq .Values.network.mode "istio") }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -21,16 +21,16 @@ spec:
     targetRevision: {{ .Values.applications.istio.revision }}
     helm:
       valueFiles:
-        {{- include "app-of-apps.valuesFilesIstioBase" . | nindent 16 }}
+        - values.yaml
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-{{/*    syncOptions:*/}}
-{{/*      - CreateNamespace=true*/}}
-{{/*    managedNamespaceMetadata:*/}}  # todo
-{{/*      labels:*/}}
-{{/*        istio-injection: enabled*/}}
+    syncOptions:
+      - CreateNamespace=true
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: enabled
   ignoreDifferences:
     # fixes reconciliation loop
     # see: https://github.com/argoproj/argo-cd/issues/9323

@@ -1,4 +1,4 @@
-{{ if and (or .Values.applications.istio.enabled (eq .Values.network.mode "istio")) .Values.applications.argocd.enabled }}
+{{ if and (and .Values.applications.istio.enabled (eq .Values.network.mode "istio")) .Values.applications.argocd.enabled }}
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
@@ -17,7 +17,7 @@ spec:
   http:
     - route:
         - destination:
-            host: argo-cd-argocd-server.argocd.svc.cluster.local
+            host: argocd-server.argocd.svc.cluster.local
             port:
               number: 80
 {{ end }}

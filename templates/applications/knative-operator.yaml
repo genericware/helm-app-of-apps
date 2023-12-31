@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: knative-operator
-  namespace: {{ .Values.applications.knative.operator.namespace }}
+  namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "-90"
   labels:
@@ -13,7 +13,7 @@ metadata:
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.applications.argocd.namespace }}
+    namespace: {{ .Values.applications.knative.operator.namespace }}
   project: {{ .Values.project.name }}
   source:
     path: templates/kustomizations/knative-operator/{{ .Values.project.platform }}-{{ .Values.project.environment }}-{{ .Values.project.profile }}

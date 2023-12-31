@@ -1,4 +1,4 @@
-{{ if or .Values.applications.istio.enabled (eq .Values.network.mode "istio") }}
+{{ if and .Values.applications.istio.enabled (eq .Values.network.mode "istio") }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -20,15 +20,19 @@ spec:
     repoURL: https://istio-release.storage.googleapis.com/charts
     targetRevision: {{ .Values.applications.istio.revision }}
     helm:
-      values: |
-        {{- include "app-of-apps.valuesObjectIstioIngress" . | nindent 16 }}
+      valuesObject:
+        global:
+          logAsJson: true
+        labels:
+          app.kubernetes.io/name: istio-ingress
+          app.kubernetes.io/version: v{{ .Values.applications.istio.revision }}
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-{{/*    syncOptions:*/}}
-{{/*      - CreateNamespace=true*/}}
-{{/*    managedNamespaceMetadata:*/}}  # todo
-{{/*      labels:*/}}
-{{/*        istio-injection: enabled*/}}
+    syncOptions:
+      - CreateNamespace=true
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: enabled
 {{ end }}
