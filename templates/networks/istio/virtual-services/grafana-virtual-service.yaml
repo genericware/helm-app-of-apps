@@ -17,7 +17,7 @@ spec:
   http:
     - route:
         - destination:
-            host: kube-prometheus-grafana.kube-prometheus.svc.cluster.local
+            host: kube-prometheus-stack-grafana.kube-prometheus.svc.cluster.local
             port:
               number: 80
 {{ end }}
