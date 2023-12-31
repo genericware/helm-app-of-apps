@@ -51,7 +51,7 @@ spec:
                   port: 9090
                 tracing:
                   collector_url: "http://jaeger-operator-jaeger-collector.jaeger:14268/api/traces"
-                  enabled: true
+                  enabled: false
               port: 20001
             istio_labels:
               app_label_name: "app.kubernetes.io/name"
@@ -128,7 +128,7 @@ spec:
                 url: "http://kube-prometheus-kube-prome-prometheus.kube-prometheus:9090/"
                 is_core: true
               tracing:
-                enabled: true
+                enabled: false
                 in_cluster_url: "http://tempo-distributed-gateway.tempo.svc.cluster.local:80/jaeger-query"
                 use_grpc: false
   syncPolicy:
