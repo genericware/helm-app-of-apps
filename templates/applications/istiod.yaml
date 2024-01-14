@@ -1,11 +1,11 @@
-{{ if and .Values.applications.istio.enabled (eq .Values.network.mode "istio") }}
+{{ if and .Values.network.enabled (and .Values.applications.istio.enabled (eq .Values.network.mode "istio")) }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: istiod
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-180"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.istio.istiod.wave }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -21,7 +21,6 @@ spec:
     targetRevision: {{ .Values.applications.istio.revision }}
     helm:
       valuesObject:
-        {{/* todo: link log format */}}
         {{/* todo: link tracing */}}
         pilot:
           podLabels:
@@ -31,7 +30,7 @@ spec:
           rootNamespace: {{ .Values.applications.istio.istiod.namespace }}
           trustDomain: "cluster.local"
         global:
-          logAsJson: true
+          logAsJson: {{ ternary true false (eq .Values.logs.format "json") }}
           accessLogFile: /dev/stdout
           proxy:
             tracer: "zipkin"

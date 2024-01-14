@@ -1,11 +1,11 @@
-{{ if .Values.applications.tempo.enabled }}
+{{ if and .Values.applications.rook.enabled .Values.applications.tempo.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: tempo
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-30"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.tempo.wave }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -21,8 +21,6 @@ spec:
     targetRevision: {{ .Values.applications.tempo.revision }}
     helm:
       valuesObject:
-        {{/* todo: link log format */}}
-        {{/* todo: link log level */}}
         {{/* todo: tracing */}}
         {{/* todo: link tracing */}}
         {{/* todo: secrets */}}
@@ -33,8 +31,8 @@ spec:
           memberlist:
             appProtocol: tcp
         server:
-          logLevel: info
-          logFormat: json
+          logLevel: {{ .Values.logs.level }}
+          logFormat: {{ .Values.logs.format }}
         querier:
           appProtocol:
             grpc: grpc
@@ -87,6 +85,7 @@ spec:
         storage:
           trace:
             backend: s3
+{{/*            todo */}}
             s3:
               bucket: tempo-{{ .Values.project.region }}-{{ .Values.project.environment }}
               access_key: tempo

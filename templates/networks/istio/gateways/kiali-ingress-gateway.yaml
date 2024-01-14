@@ -1,11 +1,11 @@
-{{ if and (and .Values.applications.istio.enabled (eq .Values.network.mode "istio")) .Values.applications.kiali.enabled }}
+{{ if and .Values.applications.kiali.enabled (.Values.network.enabled (and .Values.applications.istio.enabled (eq .Values.network.mode "istio"))) }}
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
   name: kiali-ingress-gateway
   namespace: {{ .Values.applications.istio.gateway.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-120"
+    argocd.argoproj.io/sync-wave: "-160"  # todo: magic value
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
 spec:
   selector:

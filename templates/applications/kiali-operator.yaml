@@ -1,11 +1,11 @@
-{{ if and .Values.applications.istio.enabled .Values.applications.kiali.enabled }}
+{{ if and .Values.applications.kiali.enabled (.Values.network.enabled (and .Values.applications.istio.enabled (eq .Values.network.mode "istio"))) }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: kiali-operator
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-130"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.argocd.wave }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -21,8 +21,6 @@ spec:
     targetRevision: {{ .Values.applications.kiali.revision }}
     helm:
       valuesObject:
-        {{/* todo: link log format */}}
-        {{/* todo: link log level */}}
         {{/* todo: link metrics enable/disable */}}
         {{/* todo: link tracing enable/disable */}}
         {{/* todo: link grafana enable/disable */}}
@@ -32,8 +30,8 @@ spec:
           spec:
             deployment:
               logger:
-                log_level: info
-                log_format: json
+                log_level: {{ .Values.logs.level }}
+                log_format: {{ .Values.logs.format }}
             api:
               namespaces:
                 exclude:

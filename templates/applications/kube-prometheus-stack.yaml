@@ -5,7 +5,7 @@ metadata:
   name: kube-prometheus-stack
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-60"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.prometheus.wave }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -21,23 +21,21 @@ spec:
     targetRevision: {{ .Values.applications.prometheus.revision }}
     helm:
       valuesObject:
-        {{/* todo: link log format */}}
-        {{/* todo: link log level */}}
         {{/* todo: tracing */}}
         {{/* todo: link tracing */}}
         {{/* todo: enable/disable loki datasource */}}
         {{/* todo: enable/disable tempo datasource */}}
         alertmanager:
           alertmanagerSpec:
-            logLevel: info
-            logFormat: json
+            logLevel: {{ .Values.logs.level }}
+            logFormat: {{ .Values.logs.format }}
         grafana:
           grafana.ini:
             log:
               mode: console
             log.console:
-              level: info
-              format: json
+              level: {{ .Values.logs.level }}
+              format: {{ .Values.logs.format }}
           additionalDataSources:
             # tempo
             - name: Tempo
@@ -66,8 +64,8 @@ spec:
               version: 1
               apiVersion: 1
         prometheusOperator:
-          logLevel: info
-          logFormat: json
+          logLevel: {{ .Values.logs.level }}
+          logFormat: {{ .Values.logs.format }}
           podLabels:
             app.kubernetes.io/name: prometheus-operator
           ## Admission webhook support for PrometheusRules
@@ -82,8 +80,8 @@ spec:
                 {{ end }}
         prometheus:
           prometheusSpec:
-            logLevel: info
-            logFormat: json
+            logLevel: {{ .Values.logs.level }}
+            logFormat: {{ .Values.logs.format }}
             serviceMonitorSelectorNilUsesHelmValues: false
             podMonitorSelectorNilUsesHelmValues: false
             additionalScrapeConfigs:

@@ -1,11 +1,11 @@
-{{ if .Values.applications.promtail.enabled }}
+{{ if and .Values.applications.loki.enabled .Values.applications.promtail.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: promtail
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-20"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.promtail.wave }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -24,11 +24,11 @@ spec:
         podLabels:
           app.kubernetes.io/version: v{{ .Values.applications.promtail.revision }}
         config:
-          logLevel: info
-          logFormat: json
+          logLevel: {{ .Values.logs.level }}
+          logFormat: {{ .Values.logs.format }}
           clients:
             - url: http://loki-distributed-gateway.loki/loki/api/v1/push
-          enableTracing: {{ .Values.tracing.enabled }}
+          enableTracing: {{ .Values.traces.enabled }}
           snippets:
             pipelineStages:
               - json:

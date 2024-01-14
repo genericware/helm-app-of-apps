@@ -1,95 +1,193 @@
-# todo: edit for helm-docs so comments auto-include in README
-# provide a name in place of 'app-of-apps'
+# -- provide a name in place of 'app-of-apps'
 nameOverride: app-of-apps
-# string to fully override `"app-of-apps.fullname"`
+# -- string to fully override `"app-of-apps.fullname"`
 fullnameOverride: ""
 
 project:
+  # -- project name
   name: default
+  # -- project description
   description: application that launches other applications
+  # -- project organization
   organization: generic-infrastructure
-  # environment options: 'development'
+  # -- project environment: 'development', 'staging', 'production'
   environment: development
+  # -- project region: 'local', ...
   region: local
+  # -- project cluster domain
   domain: generic-infrastructure.org
-  # platform options: 'minikube'
+  # -- project cluster platform: 'minikube', 'gke'
   platform: minikube
-  # profile options: 'demo', 'default'
+  # -- project cluster profile: 'demo', 'default'
   profile: demo
+  # -- project gitops repository
   repository: git@github.com:generic-infrastructure/terragrunt-devops.git
+  # -- project gitops branch
   branch: HEAD
 
 network:
-  # mode options: 'istio'
+  # -- network enable: 'true', 'false'
+  enabled: true
+  # -- network mode: 'istio'
   mode: istio
-  # issuer options: 'selfsigned'
+  # -- network issuer: 'selfsigned', 'acme'
   issuer: selfsigned
 
-applications:
-  argocd:
-    enabled: false
-    revision: 5.49.0
-    namespace: argocd
-  certManager:
-    enabled: true
-    revision: 1.13.2
-    namespace: cert-manager
-  istio:
-    enabled: true
-    revision: 1.18.0
-    base:
-      namespace: istio-system
-    gateway:
-      namespace: istio-ingress
-    istiod:
-      namespace: istio-system
-  kiali:
-    enabled: true
-    revision: 1.70.0
-    namespace: kiali-operator
-  knative:
-    enabled: true
-    operator:
-      version: 1.11.0
-      namespace: default
-    serving:
-      version: 1.11.0
-      namespace: knative-serving
-    eventing:
-      version: 1.11.0
-      namespace: knative-eventing
-  prometheus:
-    enabled: true
-    revision: 48.1.1
-    namespace: kube-prometheus
-  minio:
-    enabled: true
-    revision: 5.0.13
-    namespace: minio
-  loki:
-    enabled: true
-    revision: 0.69.16
-    namespace: loki
-  promtail:
-    enabled: true
-    revision: 6.11.5
-    namespace: promtail
-  tempo:
-    enabled: true
-    revision: 1.4.8
-    namespace: tempo
-  kafka:
-    enabled: true
-    revision: 0.35.1
-    namespace: kafka
-
-logging:
+logs:
+  # -- logs enable: 'true', 'false'
   enabled: true
+  # -- logs level: 'trace', 'debug', 'info', 'warn', 'error', 'critical'
   level: info
-  # format options: 'json'
-  # todo: add logfmt
+  # -- logs format: 'json'
   format: json
 
-tracing:
-  # todo: link enabled
+metrics:
+  # -- metrics enable: 'true', 'false'
   enabled: true
+
+traces:
+  # -- traces enable: 'true', 'false'
+  enabled: true
+
+applications:
+
+  istio:
+    # -- istio enable: 'true', 'false'
+    enabled: false
+    # -- istio version
+    revision: 1.18.0
+    base:
+      # -- istio-base namespace
+      namespace: istio-system
+      wave: "-220"
+    istiod:
+      # -- istiod namespace
+      namespace: istio-system
+      wave: "-210"
+    gateway:
+      # -- gateway namespace
+      namespace: istio-ingress
+      wave: "-200"
+
+  certManager:
+    # -- cert-manager enable: 'true', 'false'
+    enabled: false
+    # -- cert-manager version
+    revision: 1.13.2
+    # -- cert-manager namespace
+    namespace: cert-manager
+    wave: "-190"
+
+  kiali:
+    # -- kiali enable: 'true', 'false'
+    enabled: false
+    # -- kiali version
+    revision: 1.70.0
+    # -- kiali namespace
+    namespace: kiali-operator
+    wave: "-130"
+
+  argocd:
+    # -- argocd enable: 'true', 'false'
+    enabled: false
+    # -- argocd version
+    revision: 5.49.0
+    # -- argocd namespace
+    namespace: argocd
+    wave: "-120"
+
+  knative:
+    # -- knative enable: 'true', 'false'
+    enabled: false
+    operator:
+      # -- knative operator version
+      version: 1.11.0
+      # -- knative operator namespace
+      namespace: default
+      wave: "-110"
+    serving:
+      # -- knative serving version
+      version: 1.11.0
+      # -- knative serving namespace
+      namespace: knative-serving
+      wave: "-100"
+    eventing:
+      # -- knative eventing version
+      version: 1.11.0
+      # -- knative eventing namespace
+      namespace: knative-eventing
+      wave: "-90"
+
+  prometheus:
+    # -- prometheus enable: 'true', 'false'
+    enabled: false
+    # -- prometheus version
+    revision: 48.1.1
+    # -- prometheus namespace
+    namespace: kube-prometheus
+    wave: "-80"
+
+  rook:
+    # -- rook enable: 'true', 'false'
+    enabled: false
+    # -- rook version
+    revision: v1.13.2
+    # -- rook namespace
+    namespace: rook-ceph
+    wave: "-70"
+
+  loki:
+    # -- loki enable: 'true', 'false'
+    enabled: true
+    # -- loki version
+    revision: 0.69.16
+    # -- loki namespace
+    namespace: loki
+    wave: "-60"
+
+  promtail:
+    # -- promtail enable: 'true', 'false'
+    enabled: true
+    # -- promtail version
+    revision: 6.11.5
+    # -- promtail namespace
+    namespace: promtail
+    wave: "-50"
+
+  tempo:
+    # -- tempo enable: 'true', 'false'
+    enabled: true
+    # -- tempo version
+    revision: 1.4.8
+    # -- tempo namespace
+    namespace: tempo
+    wave: "-40"
+
+  strimzi:
+    # -- strimzi enable: 'true', 'false'
+    enabled: true
+    # -- strimzi version
+    revision: 0.35.1
+    # -- strimzi namesapce
+    namespace: kafka
+    wave: "-30"
+
+  mysql:
+    # -- mysql enable: 'true', 'false'
+    enabled: true
+    # -- mysql version
+    revision: 2.1.1
+    # -- mysql namespace
+    namespace: mysql-operator
+    wave: "-20"
+
+  mongodb:
+    # -- mongodb enable: 'true', 'false'
+    enabled: true
+    # -- mongodb version
+    revision: 0.9.0
+    # -- mongodb namespace
+    namespace: mongodb
+    wave: "-10"
+
+# todo: tenants

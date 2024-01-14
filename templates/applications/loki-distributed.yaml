@@ -5,7 +5,7 @@ metadata:
   name: loki
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-40"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.loki.wave }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:

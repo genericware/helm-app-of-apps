@@ -5,7 +5,7 @@ metadata:
   name: argocd
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-200"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.argocd.wave }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -23,8 +23,8 @@ spec:
       valuesObject:
         global:
           logging:
-            format: json
-            level: info
+            format: {{ .Values.logs.format }}
+            level: {{ .Values.logs.level }}
         server:
           extraArgs:
             - --insecure

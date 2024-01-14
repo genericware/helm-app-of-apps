@@ -1,11 +1,11 @@
-{{ if .Values.applications.knative.enabled }}
+{{ if and .Values.applications.knative.enabled (.Values.network.enabled (and .Values.applications.istio.enabled (eq .Values.network.mode "istio"))) }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: knative-serving
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-80"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.knative.serving.wave }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -16,7 +16,7 @@ spec:
     namespace: {{ .Values.applications.knative.serving.namespace }}
   project: {{ .Values.project.name }}
   source:
-    path: templates/kustomizations/knative-serving/{{ .Values.project.platform }}-{{ .Values.project.environment }}-{{ .Values.project.profile }}
+    path: k12s/knative-serving/{{ .Values.project.platform }}-{{ .Values.project.environment }}-{{ .Values.project.profile }}
     kustomize:
       namespace: {{ .Values.applications.knative.serving.namespace }}
   syncPolicy:

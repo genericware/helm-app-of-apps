@@ -4,7 +4,7 @@ kind: ClusterIssuer
 metadata:
   name: selfsigned
   annotations:
-    argocd.argoproj.io/sync-wave: "-150"
+    argocd.argoproj.io/sync-wave: "-180"  # todo: magic value
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
 spec:
   selfSigned: {}
@@ -15,7 +15,7 @@ metadata:
   name: istio-ca
   namespace: {{ .Values.applications.certManager.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-150"
+    argocd.argoproj.io/sync-wave: "-180"  # todo: magic value
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
 spec:
   isCA: true
@@ -40,7 +40,7 @@ kind: ClusterIssuer
 metadata:
   name: istio-ca
   annotations:
-    argocd.argoproj.io/sync-wave: "-150"
+    argocd.argoproj.io/sync-wave: "-180"  # todo: magic value
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
 spec:
   ca:
