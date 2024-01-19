@@ -20,7 +20,7 @@ spec:
     repoURL: https://strimzi.io/charts/
     targetRevision: {{ .Values.applications.strimzi.revision }}
     helm:
-      valuesObject:
+      valuesObject: # todo: log format, log level
         logConfiguration: |
           name = COConfig
           monitorInterval = 30
