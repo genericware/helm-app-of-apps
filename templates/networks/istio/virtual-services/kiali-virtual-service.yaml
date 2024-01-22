@@ -1,4 +1,4 @@
-{{ if and .Values.applications.kiali.enabled (.Values.network.enabled (and .Values.applications.istio.enabled (eq .Values.network.mode "istio"))) }}
+{{ if and .Values.applications.kiali.enabled (and .Values.network.enabled (and .Values.applications.istio.enabled (eq .Values.network.mode "istio"))) }}
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
