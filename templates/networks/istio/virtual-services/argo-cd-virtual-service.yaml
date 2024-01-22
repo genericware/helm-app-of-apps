@@ -6,7 +6,7 @@ metadata:
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "-118" # todo: magic value
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true, Delete=false  # todo: remove
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
 spec:

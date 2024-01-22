@@ -5,7 +5,7 @@ metadata:
   name: selfsigned
   annotations:
     argocd.argoproj.io/sync-wave: "-180"  # todo: magic value
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true, Delete=false  # todo: remove
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
 spec:
   selfSigned: {}
 ---
@@ -16,7 +16,7 @@ metadata:
   namespace: {{ .Values.applications.certManager.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "-180"  # todo: magic value
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true, Delete=false  # todo: remove
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
 spec:
   isCA: true
   duration: 87600h0m0s # 10 years
@@ -41,7 +41,7 @@ metadata:
   name: istio-ca
   annotations:
     argocd.argoproj.io/sync-wave: "-180"  # todo: magic value
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true, Delete=false  # todo: remove
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
 spec:
   ca:
     secretName: istio-ca
