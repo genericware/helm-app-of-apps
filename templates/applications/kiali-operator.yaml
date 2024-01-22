@@ -1,4 +1,4 @@
-{{ if and .Values.applications.kiali.enabled (and .Values.network.enabled (and .Values.applications.istio.enabled (eq .Values.network.mode "istio"))) }}
+{{ if .Values.applications.kiali.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -135,7 +135,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-    managedNamespaceMetadata:
-      labels:
-        istio-injection: enabled
 {{ end }}

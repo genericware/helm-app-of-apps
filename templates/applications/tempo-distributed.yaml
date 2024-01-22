@@ -1,4 +1,4 @@
-{{ if and .Values.applications.rook.enabled .Values.applications.tempo.enabled }}
+{{ if .Values.applications.tempo.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
