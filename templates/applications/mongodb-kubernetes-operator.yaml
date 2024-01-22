@@ -5,7 +5,7 @@ metadata:
   name: mongodb-kubernetes-operator
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.applications.mongodb.wave }}
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.mongodb.wave | quote }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:

@@ -5,7 +5,7 @@ metadata:
   name: knative-operator
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.applications.knative.operator.wave }}
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.knative.operator.wave | quote }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:

@@ -5,7 +5,7 @@ metadata:
   name: argocd
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.applications.argocd.wave }}
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.argocd.wave | quote }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:

@@ -5,7 +5,7 @@ metadata:
   name: rook-ceph
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.applications.rook.wave }}
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.rook.wave | quote }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:

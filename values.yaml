@@ -59,15 +59,15 @@ applications:
     base:
       # -- istio-base namespace
       namespace: istio-system
-      wave: "-220"
+      wave: -220
     istiod:
       # -- istiod namespace
       namespace: istio-system
-      wave: "-210"
+      wave: -210
     gateway:
       # -- gateway namespace
       namespace: istio-ingress
-      wave: "-200"
+      wave: -200
 
   certManager:
     # -- cert-manager enable: 'true', 'false'
@@ -76,7 +76,7 @@ applications:
     revision: 1.13.2
     # -- cert-manager namespace
     namespace: cert-manager
-    wave: "-190"
+    wave: -190
 
   kiali:
     # -- kiali enable: 'true', 'false'
@@ -85,7 +85,7 @@ applications:
     revision: 1.70.0
     # -- kiali namespace
     namespace: kiali-operator
-    wave: "-130"
+    wave: -130
 
   argocd:
     # -- argocd enable: 'true', 'false'
@@ -94,7 +94,7 @@ applications:
     revision: 5.49.0
     # -- argocd namespace
     namespace: argocd
-    wave: "-120"
+    wave: -120
 
   knative:
     # -- knative enable: 'true', 'false'
@@ -104,19 +104,19 @@ applications:
       version: 1.11.0
       # -- knative operator namespace
       namespace: default
-      wave: "-110"
+      wave: -110
     serving:
       # -- knative serving version
       version: 1.11.0
       # -- knative serving namespace
       namespace: knative-serving
-      wave: "-100"
+      wave: -100
     eventing:
       # -- knative eventing version
       version: 1.11.0
       # -- knative eventing namespace
       namespace: knative-eventing
-      wave: "-90"
+      wave: -90
 
   prometheus:
     # -- prometheus enable: 'true', 'false'
@@ -125,7 +125,7 @@ applications:
     revision: 48.1.1
     # -- prometheus namespace
     namespace: kube-prometheus
-    wave: "-80"
+    wave: -80
 
   rook:
     # -- rook enable: 'true', 'false'
@@ -134,7 +134,7 @@ applications:
     revision: v1.13.2
     # -- rook namespace
     namespace: rook-ceph
-    wave: "-70"
+    wave: -70
 
   loki:
     # -- loki enable: 'true', 'false'
@@ -143,7 +143,7 @@ applications:
     revision: 0.69.16
     # -- loki namespace
     namespace: loki
-    wave: "-60"
+    wave: -60
 
   promtail:
     # -- promtail enable: 'true', 'false'
@@ -152,7 +152,7 @@ applications:
     revision: 6.11.5
     # -- promtail namespace
     namespace: promtail
-    wave: "-50"
+    wave: -50
 
   tempo:
     # -- tempo enable: 'true', 'false'
@@ -161,7 +161,7 @@ applications:
     revision: 1.4.8
     # -- tempo namespace
     namespace: tempo
-    wave: "-40"
+    wave: -40
 
   strimzi:
     # -- strimzi enable: 'true', 'false'
@@ -170,7 +170,7 @@ applications:
     revision: 0.35.1
     # -- strimzi namesapce
     namespace: kafka
-    wave: "-30"
+    wave: -30
 
   mysql:
     # -- mysql enable: 'true', 'false'
@@ -179,7 +179,7 @@ applications:
     revision: 2.1.1
     # -- mysql namespace
     namespace: mysql-operator
-    wave: "-20"
+    wave: -20
 
   mongodb:
     # -- mongodb enable: 'true', 'false'
@@ -188,6 +188,6 @@ applications:
     revision: 0.9.0
     # -- mongodb namespace
     namespace: mongodb
-    wave: "-10"
+    wave: -10
 
 # todo: tenants

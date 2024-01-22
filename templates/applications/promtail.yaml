@@ -5,7 +5,7 @@ metadata:
   name: promtail
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.applications.promtail.wave }}
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.promtail.wave | quote }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
