@@ -5,7 +5,7 @@ metadata:
   name: kiali-virtual-service
   namespace: {{ .Values.applications.kiali.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-150" # todo: magic value
+    argocd.argoproj.io/sync-wave: "-128" # todo: magic value
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}

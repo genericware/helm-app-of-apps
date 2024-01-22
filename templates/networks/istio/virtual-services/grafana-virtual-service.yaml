@@ -5,7 +5,7 @@ metadata:
   name: grafana-virtual-service
   namespace: {{ .Values.applications.prometheus.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-150" # todo: magic value
+    argocd.argoproj.io/sync-wave: "-78" # todo: magic value
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}

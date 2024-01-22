@@ -5,7 +5,7 @@ metadata:
   name: argocd-ingress-gateway
   namespace: {{ .Values.applications.istio.gateway.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-160"  # todo: magic value
+    argocd.argoproj.io/sync-wave: "-119"  # todo: magic value
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
 spec:
   selector:
