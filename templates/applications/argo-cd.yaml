@@ -6,6 +6,7 @@ metadata:
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: {{ .Values.applications.argocd.wave | quote }}
+    argocd.argoproj.io/sync-options: Delete=false
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
