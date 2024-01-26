@@ -17,7 +17,7 @@ spec:
   project: {{ .Values.project.name }}
   source:
     chart: kube-prometheus-stack
-    repoURL: https://prometheus-community.github.io/helm-charts
+    repoURL: http://prometheus-community.github.io/helm-charts
     targetRevision: {{ .Values.applications.prometheus.revision }}
     helm:
       valuesObject:
