@@ -78,6 +78,24 @@ applications:
     namespace: cert-manager
     wave: -190
 
+  keycloak:
+    # -- keycloak enable: 'true', 'false'
+    enabled: false
+    # -- keycloak version
+    revision: 2.3.0
+    # -- keycloak namespace
+    namespace: keycloak
+    wave: -160
+
+  oauth2Proxy:
+    # -- oauth2-proxy enable: 'true', 'false'
+    enabled: false
+    # -- oauth2-proxy version
+    revision: 6.23.1
+    # --oauth2-proxy namespace
+    namespace: oauth2-proxy
+    wave: -150
+
   kiali:
     # -- kiali enable: 'true', 'false'
     enabled: false
