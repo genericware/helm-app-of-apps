@@ -1,3 +1,4 @@
+{{/*todo: test*/}}
 {{ if .Values.tenants }}
 {{ range $k, $v := .Values.tenants }}
 apiVersion: argoproj.io/v1alpha1
