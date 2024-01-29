@@ -1,1 +1,37 @@
-{{/*todo*/}}
+{{ if .Values.tenants }}
+{{ range $k, $v := .Values.tenants }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $k }}
+  namespace: {{ .Values.applications.argocd.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+  labels:
+    {{- include "app-of-apps.labels" $ | nindent 4 }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: {{ $v.namespace }}
+    server: https://kubernetes.default.svc
+  project: {{ .Values.project.name }}
+  source:
+    path: .
+    repoURL: https://github.com/generic-infrastructure/helm-tenant.git
+    targetRevision: {{ $.Values.project.branch }}
+    helm:
+      valueFiles:
+        - {{ $v.values }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: enabled
+---
+{{- end }}
+{{- end }}

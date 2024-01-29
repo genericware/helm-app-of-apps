@@ -208,4 +208,14 @@ applications:
     namespace: mongodb
     wave: -10
 
-# todo: tenants
+tenants:
+  admin:
+    # -- admin enable: 'true', 'false'
+    enabled: true
+    # -- admin revision
+    revision: 0.1.0
+    # -- admin namespace
+    namespace: default
+    # -- admin values
+    values: values.yaml
+    wave: 0
