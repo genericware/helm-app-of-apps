@@ -15,7 +15,7 @@ project:
   # -- project region: 'local', ...
   region: local
   # -- project cluster domain
-  domain: generic-infrastructure.org
+  domain: generic-infrastructure.test
   # -- project cluster platform: 'minikube', 'gke'
   platform: minikube
   # -- project cluster profile: 'demo', 'default'
