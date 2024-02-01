@@ -1,3 +1,4 @@
+# todo: fix kiali "default" application
 # todo: fix remove "sync-wave" magic values
 # todo: fix remove SkipDryRunOnMissingResource=true
 # todo: fix enable/disable grafana datasources
