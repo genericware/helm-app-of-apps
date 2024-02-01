@@ -1,3 +1,18 @@
+# todo: fix remove "sync-wave" magic values
+# todo: fix remove SkipDryRunOnMissingResource=true
+# todo: fix enable/disable grafana datasources
+# todo: check metrics, tracing, logging
+# todo: check enable/disable
+# todo: check microservice framework
+# todo: check object storage cluster
+# todo: check logging object storage
+# todo: check tracing object storage
+# todo: check document database cluster
+# todo: check in-memory cache cluster
+# todo: check oauth2 proxy
+# todo: check oauth2 provider
+# todo: feat helm secrets
+# todo: feat demo profile optimization
 # -- provide a name in place of 'app-of-apps'
 nameOverride: app-of-apps
 # -- string to fully override `"app-of-apps.fullname"`

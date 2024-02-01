@@ -21,10 +21,6 @@ spec:
     targetRevision: {{ .Values.applications.prometheus.revision }}
     helm:
       valuesObject:
-        {{/* todo: tracing */}}
-        {{/* todo: link tracing */}}
-        {{/* todo: enable/disable loki datasource */}}
-        {{/* todo: enable/disable tempo datasource */}}
         alertmanager:
           alertmanagerSpec:
             logLevel: {{ .Values.logs.level }}

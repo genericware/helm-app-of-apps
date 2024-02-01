@@ -21,12 +21,6 @@ spec:
     targetRevision: {{ .Values.applications.loki.revision }}
     helm:
       valuesObject:
-        {{/* todo: link log format */}}
-        {{/* todo: link log level */}}
-        {{/* todo: tracing */}}
-        {{/* todo: link tracing */}}
-        {{/* todo: secrets */}}
-        {{/* todo: link storage */}}
         gateway:
           nginxConfig:
             logFormat: |

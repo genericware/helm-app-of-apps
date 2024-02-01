@@ -21,7 +21,6 @@ spec:
     targetRevision: {{ .Values.applications.istio.revision }}
     helm:
       valuesObject:
-        {{/* todo: link tracing */}}
         pilot:
           podLabels:
             app.kubernetes.io/name: istiod

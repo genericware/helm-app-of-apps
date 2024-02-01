@@ -21,9 +21,6 @@ spec:
     targetRevision: {{ .Values.applications.kiali.revision }}
     helm:
       valuesObject:
-        {{/* todo: link metrics enable/disable */}}
-        {{/* todo: link tracing enable/disable */}}
-        {{/* todo: link grafana enable/disable */}}
         cr:
           create: true
           namespace: {{ .Values.applications.istio.istiod.namespace }}

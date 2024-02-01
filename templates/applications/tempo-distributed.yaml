@@ -21,12 +21,6 @@ spec:
     targetRevision: {{ .Values.applications.tempo.revision }}
     helm:
       valuesObject:
-        {{/* todo: tracing */}}
-        {{/* todo: link tracing */}}
-        {{/* todo: secrets */}}
-        {{/* todo: metrics */}}
-        {{/* todo: link metrics */}}
-        {{/* todo: link storage */}}
         tempo:
           memberlist:
             appProtocol: tcp
@@ -85,7 +79,6 @@ spec:
         storage:
           trace:
             backend: s3
-{{/*            todo */}}
             s3:
               bucket: tempo-{{ .Values.project.region }}-{{ .Values.project.environment }}
               access_key: tempo

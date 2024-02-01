@@ -5,8 +5,8 @@ metadata:
   name: grafana-ingress-gateway
   namespace: {{ .Values.applications.istio.gateway.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-79"  # todo: magic value
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
+    argocd.argoproj.io/sync-wave: "-79"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   selector:
     istio: ingress

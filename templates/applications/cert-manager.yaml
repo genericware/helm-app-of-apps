@@ -21,8 +21,6 @@ spec:
     targetRevision: {{ .Values.applications.certManager.revision }}
     helm:
       valuesObject:
-        {{/* todo: link logging level; try '--logging-verbosity' with int value ~0-6 */}}
-        {{/* todo: tracing */}}
         installCRDs: true
         extraArgs:
           - --logging-format={{ .Values.logs.format }}

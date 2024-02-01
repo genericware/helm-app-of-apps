@@ -1,3 +1,4 @@
+{{/*todo: template spec.mtls*/}}
 {{ if and .Values.network.enabled (and .Values.applications.istio.enabled (eq .Values.network.mode "istio")) }}
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
@@ -5,9 +6,9 @@ metadata:
   name: default
   namespace: {{ .Values.applications.istio.istiod.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-140"  # todo: magic value
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
+    argocd.argoproj.io/sync-wave: "-140"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   mtls:
-    mode: PERMISSIVE  # todo: template
+    mode: PERMISSIVE
 {{ end }}
