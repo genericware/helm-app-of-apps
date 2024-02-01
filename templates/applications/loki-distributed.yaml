@@ -17,7 +17,7 @@ spec:
   project: {{ .Values.project.name }}
   source:
     chart: loki-distributed
-    repoURL: https://argoproj.github.io/argo-helm
+    repoURL: https://grafana.github.io/helm-charts
     targetRevision: {{ .Values.applications.loki.revision }}
     helm:
       valuesObject:
