@@ -36,7 +36,8 @@ project:
   # -- project cluster profile: 'demo', 'default'
   profile: demo
   # -- project gitops repository
-  repository: git@github.com:generic-infrastructure/terragrunt-devops.git
+#  repository: git@github.com:generic-infrastructure/terragrunt-devops.git
+  repository: https://github.com/generic-infrastructure/terragrunt-devops.git
   # -- project gitops branch
   branch: HEAD
 
