@@ -18,7 +18,8 @@ spec:
   project: {{ .Values.project.name }}
   source:
     path: k12s/argocd/charts/argo-cd-v{{ .Values.applications.argocd.revision }}
-    repoURL: https://github.com/generic-infrastructure/terragrunt-devops
+    repoURL: {{ .Values.project.repository }}
+    targetRevision: {{ .Values.project.branch }}
     helm:
       valuesObject:
         global:
