@@ -39,7 +39,7 @@ project:
 #  repository: git@github.com:generic-infrastructure/terragrunt-devops.git
   repository: https://github.com/generic-infrastructure/terragrunt-devops.git
   # -- project gitops branch
-  branch: HEAD
+  branch: feature/patches-1  # todo: cleanup
 
 network:
   # -- network enable: 'true', 'false'
