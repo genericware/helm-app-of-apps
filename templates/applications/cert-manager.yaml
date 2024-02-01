@@ -16,9 +16,8 @@ spec:
     namespace: {{ .Values.applications.certManager.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: cert-manager
-    repoURL: https://charts.jetstack.io
-    targetRevision: {{ .Values.applications.certManager.revision }}
+    path: k12s/charts/cert-manager-{{ .Values.applications.certManager.revision }}
+    repoURL: https://github.com/generic-infrastructure/terragrunt-devops
     helm:
       valuesObject:
         installCRDs: true

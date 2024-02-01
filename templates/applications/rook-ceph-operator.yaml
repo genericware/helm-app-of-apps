@@ -16,9 +16,8 @@ spec:
     namespace: {{ .Values.applications.rook.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: rook-ceph
-    repoURL: https://charts.rook.io/release
-    targetRevision: {{ .Values.applications.rook.revision }}
+    path: k12s/charts/rook-ceph-{{ .Values.applications.rook.revision }}
+    repoURL: https://github.com/generic-infrastructure/terragrunt-devops
     helm:
       valueFiles:
         - values.yaml

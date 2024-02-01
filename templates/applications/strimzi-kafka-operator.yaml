@@ -16,9 +16,8 @@ spec:
     namespace: {{ .Values.applications.strimzi.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: strimzi-kafka-operator
-    repoURL: https://strimzi.io/charts/
-    targetRevision: {{ .Values.applications.strimzi.revision }}
+    path: k12s/charts/strimzi-kafka-operator-{{ .Values.applications.strimzi.revision }}
+    repoURL: https://github.com/generic-infrastructure/terragrunt-devops
     helm:
       valuesObject:
         logConfiguration: |

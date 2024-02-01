@@ -16,9 +16,8 @@ spec:
     namespace: {{ .Values.applications.loki.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: loki-distributed
-    repoURL: https://grafana.github.io/helm-charts
-    targetRevision: {{ .Values.applications.loki.revision }}
+    path: k12s/charts/loki-distributed-{{ .Values.applications.loki.revision }}
+    repoURL: https://github.com/generic-infrastructure/terragrunt-devops
     helm:
       valuesObject:
         gateway:

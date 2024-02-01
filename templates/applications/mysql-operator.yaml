@@ -16,9 +16,8 @@ spec:
     namespace: {{ .Values.applications.mysql.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: mysql-operator
-    repoURL: https://mysql.github.io/mysql-operator/
-    targetRevision: {{ .Values.applications.mysql.revision }}
+    path: k12s/charts/mysql-operator-{{ .Values.applications.mysql.revision }}
+    repoURL: https://github.com/generic-infrastructure/terragrunt-devops
     helm:
       valueFiles:
         - values.yaml

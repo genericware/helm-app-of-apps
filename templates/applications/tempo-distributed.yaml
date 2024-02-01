@@ -16,9 +16,8 @@ spec:
     namespace: {{ .Values.applications.tempo.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: tempo-distributed
-    repoURL: https://grafana.github.io/helm-charts
-    targetRevision: {{ .Values.applications.tempo.revision }}
+    path: k12s/charts/tempo-distributed-{{ .Values.applications.tempo.revision }}
+    repoURL: https://github.com/generic-infrastructure/terragrunt-devops
     helm:
       valuesObject:
         tempo:

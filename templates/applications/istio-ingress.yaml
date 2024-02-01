@@ -16,9 +16,8 @@ spec:
     namespace: {{ .Values.applications.istio.gateway.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: gateway
-    repoURL: https://istio-release.storage.googleapis.com/charts
-    targetRevision: {{ .Values.applications.istio.revision }}
+    path: k12s/charts/gateway-{{ .Values.applications.istio.revision }}
+    repoURL: https://github.com/generic-infrastructure/terragrunt-devops
     helm:
       valuesObject:
         global:

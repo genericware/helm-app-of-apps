@@ -16,9 +16,8 @@ spec:
     namespace: {{ .Values.applications.promtail.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: promtail
-    repoURL: https://grafana.github.io/helm-charts
-    targetRevision: {{ .Values.applications.promtail.revision }}
+    path: k12s/charts/promtail-{{ .Values.applications.promtail.revision }}
+    repoURL: https://github.com/generic-infrastructure/terragrunt-devops
     helm:
       valuesObject:
         podLabels:

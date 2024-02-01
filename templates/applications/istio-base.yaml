@@ -16,9 +16,8 @@ spec:
     namespace: {{ .Values.applications.istio.base.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: base
-    repoURL: https://istio-release.storage.googleapis.com/charts
-    targetRevision: {{ .Values.applications.istio.revision }}
+    path: k12s/charts/base-{{ .Values.applications.istio.revision }}
+    repoURL: https://github.com/generic-infrastructure/terragrunt-devops
     helm:
       valueFiles:
         - values.yaml

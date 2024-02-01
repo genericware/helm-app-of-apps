@@ -16,9 +16,8 @@ spec:
     namespace: {{ .Values.applications.keycloak.namespace }}
   project: {{ .Values.project.name }}
   source:
-    path: tree/master/charts/keycloak
-    repoURL: https://github.com/codecentric/helm-charts
-    targetRevision:  keycloakx-{{ .Values.applications.keycloak.revision }}
+    path: k12s/charts/keycloakx-{{ .Values.applications.keycloak.revision }}
+    repoURL: https://github.com/generic-infrastructure/terragrunt-devops
     helm:
       valueFiles:
         - values.yaml

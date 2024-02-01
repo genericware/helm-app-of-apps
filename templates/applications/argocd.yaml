@@ -17,9 +17,8 @@ spec:
     namespace: {{ .Values.applications.argocd.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: argo-cd
-    repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: {{ .Values.applications.argocd.revision }}
+    path: k12s/argocd/charts/argo-cd-v{{ .Values.applications.argocd.revision }}
+    repoURL: https://github.com/generic-infrastructure/terragrunt-devops
     helm:
       valuesObject:
         global:
