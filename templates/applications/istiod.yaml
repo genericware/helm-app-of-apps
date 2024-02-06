@@ -25,11 +25,11 @@ spec:
           podLabels:
             app.kubernetes.io/name: istiod
             app.kubernetes.io/version: v{{ .Values.applications.istio.revision }}
-          {{- if eq .Values.project.profile | trim | lower "demo" }}
+          {{- if eq (.Values.project.profile | trim | lower) "demo" }}
           seccompProfile:
             - type: RuntimeDemo
           {{- end }}
-          {{- if eq .Values.project.profile | trim | lower "default" }}
+          {{- if eq (.Values.project.profile | trim | lower) "default" }}
           seccompProfile:
             - type: RuntimeDefault
           {{- end }}
