@@ -25,6 +25,14 @@ spec:
           podLabels:
             app.kubernetes.io/name: istiod
             app.kubernetes.io/version: v{{ .Values.applications.istio.revision }}
+          {{- if eq .Values.project.profile | lower "demo" }}
+          seccompProfile:
+            - type: RuntimeDemo
+          {{- end }}
+          {{- if eq .Values.project.profile | lower "default" }}
+          seccompProfile:
+            - type: RuntimeDefault
+          {{- end }}
         meshConfig:
           rootNamespace: {{ .Values.applications.istio.istiod.namespace }}
           trustDomain: "cluster.local"

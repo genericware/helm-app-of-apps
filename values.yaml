@@ -13,7 +13,6 @@
 # todo: check oauth2 proxy
 # todo: check oauth2 provider
 # todo: feat helm secrets
-# todo: feat demo profile optimization
 # -- provide a name in place of 'app-of-apps'
 nameOverride: app-of-apps
 # -- string to fully override `"app-of-apps.fullname"`
