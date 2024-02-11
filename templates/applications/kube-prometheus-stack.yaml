@@ -32,8 +32,9 @@ spec:
             log.console:
               level: {{ .Values.logs.level }}
               format: {{ .Values.logs.format }}
+          {{ if or .Values.applications.tempo.enabled .Values.applications.loki.enabled }}
           additionalDataSources:
-            # tempo
+            {{ if .Values.applications.tempo.enabled }}
             - name: Tempo
               type: tempo
               uid: tempo
@@ -48,7 +49,8 @@ spec:
                 httpMethod: GET
                 serviceMap:
                   datasourceUid: prometheus
-            # loki
+            {{ end }}
+            {{ if .Values.applications.loki.enabled }}
             - name: Loki
               type: loki
               uid: loki
@@ -59,6 +61,8 @@ spec:
               editable: false
               version: 1
               apiVersion: 1
+            {{ end }}
+          {{ end }}
         prometheusOperator:
           logLevel: {{ .Values.logs.level }}
           logFormat: {{ .Values.logs.format }}
