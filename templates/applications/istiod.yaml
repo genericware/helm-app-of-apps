@@ -5,7 +5,7 @@ metadata:
   name: istiod
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-180"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.istio.istiod.wave | quote }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -16,13 +16,12 @@ spec:
     namespace: {{ .Values.applications.istio.istiod.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: istiod
-    repoURL: https://istio-release.storage.googleapis.com/charts
-    targetRevision: {{ .Values.applications.istio.revision }}
+    path: k12s/charts/istiod-{{ .Values.applications.istio.revision }}/istiod
+    repoURL: {{ .Values.project.repository }}
+    targetRevision: {{ .Values.project.branch }}
     helm:
       valuesObject:
-        {{/* todo: link log format */}}
-        {{/* todo: link tracing */}}
+        profile: {{ .Values.project.profile | trim | lower }}
         pilot:
           podLabels:
             app.kubernetes.io/name: istiod
@@ -31,7 +30,7 @@ spec:
           rootNamespace: {{ .Values.applications.istio.istiod.namespace }}
           trustDomain: "cluster.local"
         global:
-          logAsJson: true
+          logAsJson: {{ ternary true false (eq .Values.logs.format "json") }}
           accessLogFile: /dev/stdout
           proxy:
             tracer: "zipkin"

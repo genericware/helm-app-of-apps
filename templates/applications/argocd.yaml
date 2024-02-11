@@ -5,7 +5,8 @@ metadata:
   name: argocd
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-200"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.argocd.wave | quote }}
+    argocd.argoproj.io/sync-options: Delete=false
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -16,15 +17,15 @@ spec:
     namespace: {{ .Values.applications.argocd.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: argo-cd
-    repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: {{ .Values.applications.argocd.revision }}
+    path: k12s/argocd/base/charts/argo-cd-v{{ .Values.applications.argocd.revision }}/argo-cd
+    repoURL: {{ .Values.project.repository }}
+    targetRevision: {{ .Values.project.branch }}
     helm:
       valuesObject:
         global:
           logging:
-            format: json
-            level: info
+            format: {{ .Values.logs.format }}
+            level: {{ .Values.logs.level }}
         server:
           extraArgs:
             - --insecure

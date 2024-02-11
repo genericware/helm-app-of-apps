@@ -4,8 +4,8 @@ kind: ClusterIssuer
 metadata:
   name: selfsigned
   annotations:
-    argocd.argoproj.io/sync-wave: "-150"
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
+    argocd.argoproj.io/sync-wave: "-180"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   selfSigned: {}
 ---
@@ -15,8 +15,8 @@ metadata:
   name: istio-ca
   namespace: {{ .Values.applications.certManager.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-150"
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
+    argocd.argoproj.io/sync-wave: "-180"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   isCA: true
   duration: 87600h0m0s # 10 years
@@ -40,8 +40,8 @@ kind: ClusterIssuer
 metadata:
   name: istio-ca
   annotations:
-    argocd.argoproj.io/sync-wave: "-150"
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
+    argocd.argoproj.io/sync-wave: "-180"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   ca:
     secretName: istio-ca

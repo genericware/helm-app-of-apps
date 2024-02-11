@@ -1,11 +1,11 @@
-{{ if and .Values.applications.istio.enabled .Values.applications.kiali.enabled }}
+{{ if .Values.applications.kiali.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: kiali-operator
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-130"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.kiali.wave | quote }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -16,24 +16,19 @@ spec:
     namespace: {{ .Values.applications.kiali.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: kiali-operator
-    repoURL: https://kiali.org/helm-charts
-    targetRevision: {{ .Values.applications.kiali.revision }}
+    path: k12s/charts/kiali-operator-{{ .Values.applications.kiali.revision }}/kiali-operator
+    repoURL: {{ .Values.project.repository }}
+    targetRevision: {{ .Values.project.branch }}
     helm:
       valuesObject:
-        {{/* todo: link log format */}}
-        {{/* todo: link log level */}}
-        {{/* todo: link metrics enable/disable */}}
-        {{/* todo: link tracing enable/disable */}}
-        {{/* todo: link grafana enable/disable */}}
         cr:
           create: true
           namespace: {{ .Values.applications.istio.istiod.namespace }}
           spec:
             deployment:
               logger:
-                log_level: info
-                log_format: json
+                log_level: {{ .Values.logs.level }}
+                log_format: {{ .Values.logs.format }}
             api:
               namespaces:
                 exclude:
@@ -137,7 +132,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-    managedNamespaceMetadata:
-      labels:
-        istio-injection: enabled
 {{ end }}

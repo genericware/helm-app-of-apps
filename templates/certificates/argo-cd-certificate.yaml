@@ -5,8 +5,8 @@ metadata:
   name: argocd-certificate
   namespace: {{ .Values.applications.istio.gateway.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-140"
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
+    argocd.argoproj.io/sync-wave: "-170"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   secretName: argocd-server-tls
   duration: 2160h0m0s # 90d

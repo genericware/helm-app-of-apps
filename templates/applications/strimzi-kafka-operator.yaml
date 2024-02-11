@@ -1,11 +1,11 @@
-{{ if .Values.applications.kafka.enabled }}
+{{ if .Values.applications.strimzi.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: strimzi-kafka-operator
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-10"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.strimzi.wave | quote }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -13,12 +13,12 @@ metadata:
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.applications.kafka.namespace }}
+    namespace: {{ .Values.applications.strimzi.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: strimzi-kafka-operator
-    repoURL: https://strimzi.io/charts/
-    targetRevision: {{ .Values.applications.kafka.revision }}
+    path: k12s/charts/strimzi-kafka-operator-{{ .Values.applications.strimzi.revision }}/strimzi-kafka-operator
+    repoURL: {{ .Values.project.repository }}
+    targetRevision: {{ .Values.project.branch }}
     helm:
       valuesObject:
         logConfiguration: |
@@ -53,7 +53,7 @@ spec:
           logger.netty.additivity = false
         labels:
           app.kubernetes.io/name: strimzi-kafka-operator
-          app.kubernetes.io/version: v{{ .Values.applications.kafka.revision }}
+          app.kubernetes.io/version: v{{ .Values.applications.strimzi.revision }}
   syncPolicy:
     automated:
       prune: true

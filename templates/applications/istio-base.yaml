@@ -5,7 +5,7 @@ metadata:
   name: istio-base
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-190"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.istio.base.wave | quote }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -16,9 +16,9 @@ spec:
     namespace: {{ .Values.applications.istio.base.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: base
-    repoURL: https://istio-release.storage.googleapis.com/charts
-    targetRevision: {{ .Values.applications.istio.revision }}
+    path: k12s/charts/base-{{ .Values.applications.istio.revision }}/base
+    repoURL: {{ .Values.project.repository }}
+    targetRevision: {{ .Values.project.branch }}
     helm:
       valueFiles:
         - values.yaml

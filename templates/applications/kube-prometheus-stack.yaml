@@ -5,7 +5,7 @@ metadata:
   name: kube-prometheus-stack
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-60"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.prometheus.wave | quote }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -16,30 +16,25 @@ spec:
     namespace: {{ .Values.applications.prometheus.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: kube-prometheus-stack
-    repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: {{ .Values.applications.prometheus.revision }}
+    path: k12s/charts/kube-prometheus-stack-{{ .Values.applications.prometheus.revision }}/kube-prometheus-stack
+    repoURL: {{ .Values.project.repository }}
+    targetRevision: {{ .Values.project.branch }}
     helm:
       valuesObject:
-        {{/* todo: link log format */}}
-        {{/* todo: link log level */}}
-        {{/* todo: tracing */}}
-        {{/* todo: link tracing */}}
-        {{/* todo: enable/disable loki datasource */}}
-        {{/* todo: enable/disable tempo datasource */}}
         alertmanager:
           alertmanagerSpec:
-            logLevel: info
-            logFormat: json
+            logLevel: {{ .Values.logs.level }}
+            logFormat: {{ .Values.logs.format }}
         grafana:
           grafana.ini:
             log:
               mode: console
             log.console:
-              level: info
-              format: json
+              level: {{ .Values.logs.level }}
+              format: {{ .Values.logs.format }}
+          {{ if or .Values.applications.tempo.enabled .Values.applications.loki.enabled }}
           additionalDataSources:
-            # tempo
+            {{ if .Values.applications.tempo.enabled }}
             - name: Tempo
               type: tempo
               uid: tempo
@@ -54,7 +49,8 @@ spec:
                 httpMethod: GET
                 serviceMap:
                   datasourceUid: prometheus
-            # loki
+            {{ end }}
+            {{ if .Values.applications.loki.enabled }}
             - name: Loki
               type: loki
               uid: loki
@@ -65,9 +61,11 @@ spec:
               editable: false
               version: 1
               apiVersion: 1
+            {{ end }}
+          {{ end }}
         prometheusOperator:
-          logLevel: info
-          logFormat: json
+          logLevel: {{ .Values.logs.level }}
+          logFormat: {{ .Values.logs.format }}
           podLabels:
             app.kubernetes.io/name: prometheus-operator
           ## Admission webhook support for PrometheusRules
@@ -82,8 +80,8 @@ spec:
                 {{ end }}
         prometheus:
           prometheusSpec:
-            logLevel: info
-            logFormat: json
+            logLevel: {{ .Values.logs.level }}
+            logFormat: {{ .Values.logs.format }}
             serviceMonitorSelectorNilUsesHelmValues: false
             podMonitorSelectorNilUsesHelmValues: false
             additionalScrapeConfigs:

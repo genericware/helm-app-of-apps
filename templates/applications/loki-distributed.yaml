@@ -5,7 +5,7 @@ metadata:
   name: loki
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-40"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.loki.wave | quote }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -16,17 +16,11 @@ spec:
     namespace: {{ .Values.applications.loki.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: loki-distributed
-    repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: {{ .Values.applications.loki.revision }}
+    path: k12s/charts/loki-distributed-{{ .Values.applications.loki.revision }}/loki-distributed
+    repoURL: {{ .Values.project.repository }}
+    targetRevision: {{ .Values.project.branch }}
     helm:
       valuesObject:
-        {{/* todo: link log format */}}
-        {{/* todo: link log level */}}
-        {{/* todo: tracing */}}
-        {{/* todo: link tracing */}}
-        {{/* todo: secrets */}}
-        {{/* todo: link storage */}}
         gateway:
           nginxConfig:
             logFormat: |

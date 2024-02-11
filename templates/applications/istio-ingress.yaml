@@ -5,7 +5,7 @@ metadata:
   name: istio-ingress
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-170"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.istio.gateway.wave | quote }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -16,13 +16,13 @@ spec:
     namespace: {{ .Values.applications.istio.gateway.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: gateway
-    repoURL: https://istio-release.storage.googleapis.com/charts
-    targetRevision: {{ .Values.applications.istio.revision }}
+    path: k12s/charts/gateway-{{ .Values.applications.istio.revision }}/gateway
+    repoURL: {{ .Values.project.repository }}
+    targetRevision: {{ .Values.project.branch }}
     helm:
       valuesObject:
         global:
-          logAsJson: true
+          logAsJson: {{ ternary true false (eq .Values.logs.format "json") }}
         labels:
           app.kubernetes.io/name: istio-ingress
           app.kubernetes.io/version: v{{ .Values.applications.istio.revision }}

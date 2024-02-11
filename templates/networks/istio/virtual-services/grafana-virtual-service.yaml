@@ -1,12 +1,12 @@
-{{ if and (and .Values.applications.istio.enabled (eq .Values.network.mode "istio")) .Values.applications.prometheus.enabled }}
+{{ if and .Values.applications.prometheus.enabled (and .Values.network.enabled (and .Values.applications.istio.enabled (eq .Values.network.mode "istio"))) }}
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: grafana-virtual-service
   namespace: {{ .Values.applications.prometheus.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-110"
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true  # todo: remove
+    argocd.argoproj.io/sync-wave: "-78"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
 spec:

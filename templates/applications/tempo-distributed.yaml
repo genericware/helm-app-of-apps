@@ -5,7 +5,7 @@ metadata:
   name: tempo
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-30"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.tempo.wave | quote }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -16,25 +16,17 @@ spec:
     namespace: {{ .Values.applications.tempo.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: tempo-distributed
-    repoURL: https://grafana.github.io/helm-charts
-    targetRevision: {{ .Values.applications.tempo.revision }}
+    path: k12s/charts/tempo-distributed-{{ .Values.applications.tempo.revision }}/tempo-distributed
+    repoURL: {{ .Values.project.repository }}
+    targetRevision: {{ .Values.project.branch }}
     helm:
       valuesObject:
-        {{/* todo: link log format */}}
-        {{/* todo: link log level */}}
-        {{/* todo: tracing */}}
-        {{/* todo: link tracing */}}
-        {{/* todo: secrets */}}
-        {{/* todo: metrics */}}
-        {{/* todo: link metrics */}}
-        {{/* todo: link storage */}}
         tempo:
           memberlist:
             appProtocol: tcp
         server:
-          logLevel: info
-          logFormat: json
+          logLevel: {{ .Values.logs.level }}
+          logFormat: {{ .Values.logs.format }}
         querier:
           appProtocol:
             grpc: grpc

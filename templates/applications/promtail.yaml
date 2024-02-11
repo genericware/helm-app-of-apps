@@ -5,7 +5,7 @@ metadata:
   name: promtail
   namespace: {{ .Values.applications.argocd.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-20"
+    argocd.argoproj.io/sync-wave: {{ .Values.applications.promtail.wave | quote }}
   labels:
     {{- include "app-of-apps.labels" . | nindent 4 }}
   finalizers:
@@ -16,19 +16,19 @@ spec:
     namespace: {{ .Values.applications.promtail.namespace }}
   project: {{ .Values.project.name }}
   source:
-    chart: promtail
-    repoURL: https://grafana.github.io/helm-charts
-    targetRevision: {{ .Values.applications.promtail.revision }}
+    path: k12s/charts/promtail-{{ .Values.applications.promtail.revision }}/promtail
+    repoURL: {{ .Values.project.repository }}
+    targetRevision: {{ .Values.project.branch }}
     helm:
       valuesObject:
         podLabels:
           app.kubernetes.io/version: v{{ .Values.applications.promtail.revision }}
         config:
-          logLevel: info
-          logFormat: json
+          logLevel: {{ .Values.logs.level }}
+          logFormat: {{ .Values.logs.format }}
           clients:
             - url: http://loki-distributed-gateway.loki/loki/api/v1/push
-          enableTracing: {{ .Values.tracing.enabled }}
+          enableTracing: {{ .Values.traces.enabled }}
           snippets:
             pipelineStages:
               - json:
